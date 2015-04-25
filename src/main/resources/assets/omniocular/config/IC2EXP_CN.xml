@@ -1,8 +1,8 @@
-<!--Date: 2015/04/23-->
+<!--Date: 2015/04/26-->
 <!--Version: 2.2.717-experimental-->
 <!--todo localized-->
 <oo>
-	<init>
+	<init><!--作物名称-->
 		function getCropName(){
 			if(nbt['cropName']=='unknown'){return "未知"}
 			if(nbt['cropName']=='weed'){return "杂草"}
@@ -31,7 +31,7 @@
 			if(nbt['cropName']=='brownMushroom'){return "褐蘑菇"}
 		}
 	</init>
-	<init>
+	<init><!--生长周期-->
 		function getCropSize(){
 			if(nbt['cropName']=='weed'){return nbt['size']+"/5"}
 			if(nbt['cropName']=='wheat'){return nbt['size']+"/7"}
@@ -59,7 +59,7 @@
 			if(nbt['cropName']=='brownMushroom'){return nbt['size']+"/3"}
 		}
 	</init>
-    <tileentity id="TECrop">
+    <tileentity id="TECrop"><!--作物架-->
         <line displayname="作物种类">
 			getCropName()
         </line>
@@ -77,6 +77,204 @@
         </line>
         <line displayname="作物产量">
             return nbt['statResistance']
+        </line>
+    </tileentity>
+	<init><!--充电物品-->
+		function getCharging(){
+			if(nbt['InvSlots']['charge']['Contents'][0]['tag']['charge']==undefined)
+			{return name(nbt['InvSlots']['charge']['Contents'][0])+"(充)"+TAB+ALIGNRIGHT+RED+"0 EU"}
+			if(nbt['InvSlots']['charge']['Contents'][0]['Damage']!=1)
+			{return name(nbt['InvSlots']['charge']['Contents'][0])+"(充)"+TAB+ALIGNRIGHT+WHITE+nbt['InvSlots']['charge']['Contents'][0]['tag']['charge']+" EU"}
+			if(nbt['InvSlots']['charge']['Contents'][0]['Damage']==1)
+			{return name(nbt['InvSlots']['charge']['Contents'][0])+"(充)"+TAB+ALIGNRIGHT+GREEN+nbt['InvSlots']['charge']['Contents'][0]['tag']['charge']+" EU"}
+		}
+	</init>
+	<init><!--燃料类型-->
+		function getDischarging(){
+			if(nbt['InvSlots']['fuel']['Contents'][0]==undefined){return RED+"无燃料"}
+			return name(nbt['InvSlots']['fuel']['Contents'][0])+"x"+nbt['InvSlots']['fuel']['Contents'][0]['Count']
+		}
+	</init>
+	<tileentity id="Generator"><!--火力发电机-->
+        <line displayname="电量储存">
+			if(nbt['storage']==4000){return GREEN+"4000 EU"}
+			if(nbt['storage']==0){return RED+"0 EU"}
+            return nbt['storage']+" EU"
+        </line>
+        <line><!--充电物品-->
+			getCharging()
+        </line>
+        <line displayname="燃料类型">
+            getDischarging()
+        </line>
+    </tileentity>
+	<tileentity id="Geothermal Generator"><!--地热发电机-->
+        <line displayname="电量储存">
+			if(nbt['storage']==24000){return GREEN+"24000 EU"}
+			if(nbt['storage']==0){return RED+"0 EU"}
+            return nbt['storage']+" EU"
+        </line>
+        <line><!--充电物品-->
+			getCharging()
+        </line>
+        <line displayname="岩浆储量">
+            if(nbt['fluidTank']['Empty']==""){return RED+"0/8000 mB"}
+			return nbt['fluidTank']['Amount']+"/8000 mB"
+        </line>
+    </tileentity>
+	<tileentity id="Water Mill"><!--水力发电机-->
+        <line displayname="电量储存">
+			if(nbt['storage']==4){return GREEN+"4 EU"}
+			if(nbt['storage']==0){return RED+"0 EU"}
+            return nbt['storage']+" EU"
+        </line>
+        <line><!--充电物品-->
+			getCharging()
+        </line>
+        <line displayname="燃料类型">
+            getDischarging()
+        </line>
+    </tileentity>
+	<tileentity id="Solar Panel"><!--太阳能发电机-->
+		<line displayname="状态信息">
+			if(nbt['active']==1){return GREEN+"正常产电"}
+			return RED+"需要阳光"
+        </line>
+        <line displayname="电量储存">
+			if(nbt['storage']==2){return GREEN+"2 EU"}
+			if(nbt['storage']==0){return RED+"0 EU"}
+            return nbt['storage']+" EU"
+        </line>
+        <line><!--充电物品-->
+			getCharging()
+        </line>
+    </tileentity>
+	<tileentity id="Wind Mill"><!--风力发电机-->
+		<line displayname="状态信息">
+			if(nbt['active']==1){return GREEN+"正常产电"}
+			return RED+"无风气候"
+        </line>
+        <line displayname="电量储存">
+			if(nbt['storage']==4){return GREEN+"4 EU"}
+			if(nbt['storage']==0){return RED+"0 EU"}
+            return nbt['storage']+" EU"
+        </line>
+        <line><!--充电物品-->
+			getCharging()
+        </line>
+    </tileentity>
+	<tileentity id="Semifluid Generator"><!--半流质发电机-->
+        <line displayname="电量储存">
+			if(nbt['storage']==32000){return GREEN+"32000 EU"}
+			if(nbt['storage']==0){return RED+"0 EU"}
+            return nbt['storage']+" EU"
+        </line>
+        <line><!--充电物品-->
+			getCharging()
+        </line>
+        <line><!--流质储量-->
+            if(nbt['fluidTank']['Empty']==""){return "流质储量"+TAB+ALIGNRIGHT+RED+"0/8000 mB"}
+            if(nbt['fluidTank']['FluidName']=='fuel'){return "燃油储量"+TAB+ALIGNRIGHT+WHITE+nbt['fluidTank']['Amount']+"/8000 mB"}
+            if(nbt['fluidTank']['FluidName']=='oil'){return "石油储量"+TAB+ALIGNRIGHT+WHITE+nbt['fluidTank']['Amount']+"/8000 mB"}
+			return nbt['fluidTank']['FluidName']+"储量"+TAB+ALIGNRIGHT+WHITE+nbt['fluidTank']['Amount']+"/8000 mB"
+        </line>
+    </tileentity>
+	<tileentity id="Stirling Generator"><!--斯特林发电机-->
+		<line displayname="状态信息">
+			if(nbt['active']==1){return GREEN+"正常产电"}
+			if(nbt['storage']>29900){return GOLD+"停止工作"}
+			return RED+"需要热量"
+        </line>
+        <line displayname="电量储存">
+			if(nbt['storage']==30000){return GREEN+"30000 EU"}
+			if(nbt['storage']==0){return RED+"0 EU"}
+            return nbt['storage']+" EU"
+        </line>
+    </tileentity>
+	<tileentity id="Kinetic Generator"><!--动能发电机-->
+		<line displayname="状态信息">
+			if(nbt['active']==1){return GREEN+"正常产电"}
+			if(nbt['storage']>199900){return GOLD+"停止工作"}
+			return RED+"需要动能"
+        </line>
+        <line displayname="电量储存">
+			if(nbt['storage']==200000){return GREEN+"200000 EU"}
+			if(nbt['storage']==0){return RED+"0 EU"}
+            return nbt['storage']+" EU"
+        </line>
+    </tileentity>
+	<init><!--供电物品-->
+		function getDischarge(){
+			if(nbt['InvSlots']['discharge']['Contents'][0]['tag']==undefined)
+			{return name(nbt['InvSlots']['discharge']['Contents'][0])+"(供)"+TAB+ALIGNRIGHT+RED+"0 EU"}
+			if(nbt['InvSlots']['discharge']['Contents'][0]['Damage']!=1)
+			{return name(nbt['InvSlots']['discharge']['Contents'][0])+"(供)"+TAB+ALIGNRIGHT+WHITE+nbt['InvSlots']['discharge']['Contents'][0]['tag']['charge']+" EU"}
+			if(nbt['InvSlots']['discharge']['Contents'][0]['Damage']==1)
+			{return name(nbt['InvSlots']['discharge']['Contents'][0])+"(供)"+TAB+ALIGNRIGHT+GREEN+nbt['InvSlots']['discharge']['Contents'][0]['tag']['charge']+" EU"}
+		}
+	</init>
+	<tileentity id="BatBox"><!--储电盒-->
+        <line displayname="电量储存">
+			if(nbt['energy']==40000){return GREEN+"40000 EU"}
+			if(nbt['energy']==0){return RED+"0 EU"}
+            return nbt['energy']+" EU"
+        </line>
+		<line displayname="输出功率">
+			return "32 EU/t"
+		</line>
+		<line><!--充电物品-->
+			getCharging()
+        </line>
+		<line><!--供电物品-->
+			getDischarge()
+        </line>
+    </tileentity>
+	<tileentity id="CESU"><!--CESU-->
+        <line displayname="电量储存">
+			if(nbt['energy']==300000){return GREEN+"300000 EU"}
+			if(nbt['energy']==0){return RED+"0 EU"}
+            return nbt['energy']+" EU"
+        </line>
+		<line displayname="输出功率">
+			return "128 EU/t"
+		</line>
+		<line><!--充电物品-->
+			getCharging()
+        </line>
+		<line><!--供电物品-->
+			getDischarge()
+        </line>
+    </tileentity>
+	<tileentity id="MFE"><!--MFE-->
+        <line displayname="电量储存">
+			if(nbt['energy']==4000000){return GREEN+"4000000 EU"}
+			if(nbt['energy']==0){return RED+"0 EU"}
+            return nbt['energy']+" EU"
+        </line>
+		<line displayname="输出功率">
+			return "512 EU/t"
+		</line>
+		<line><!--充电物品-->
+			getCharging()
+        </line>
+		<line><!--供电物品-->
+			getDischarge()
+        </line>
+    </tileentity>
+	<tileentity id="MFSU"><!--MFSU-->
+        <line displayname="电量储存">
+			if(nbt['energy']==40000000){return GREEN+"40000000 EU"}
+			if(nbt['energy']==0){return RED+"0 EU"}
+            return nbt['energy']+" EU"
+        </line>
+		<line displayname="输出功率">
+			return "2048 EU/t"
+		</line>
+		<line><!--充电物品-->
+			getCharging()
+        </line>
+		<line><!--供电物品-->
+			getDischarge()
         </line>
     </tileentity>
 </oo>
