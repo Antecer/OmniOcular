@@ -1,0 +1,82 @@
+<!--Date: 2015/04/23-->
+<!--Version: 2.2.717-experimental-->
+<!--todo localized-->
+<oo>
+	<init>
+		function getCropName(){
+			if(nbt['cropName']=='unknown'){return "未知"}
+			if(nbt['cropName']=='weed'){return "杂草"}
+			if(nbt['cropName']=='wheat'){return "小麦"}
+			if(nbt['cropName']=='pumpkin'){return "南瓜"}
+			if(nbt['cropName']=='melon'){return "西瓜"}
+			if(nbt['cropName']=='dandelion'){return "蒲公英"}
+			if(nbt['cropName']=='rose'){return "玫瑰"}
+			if(nbt['cropName']=='blackthorn'){return "黑刺李"}
+			if(nbt['cropName']=='tulip'){return "郁金香"}
+			if(nbt['cropName']=='cyazint'){return "缤纷花"}
+			if(nbt['cropName']=='venomilia'){return "奇妙花"}
+			if(nbt['cropName']=='reed'){return "甘蔗"}
+			if(nbt['cropName']=='stickreed'){return "橡胶甘蔗"}
+			if(nbt['cropName']=='cocoa'){return "可可"}
+			if(nbt['cropName']=='ferru'){return "铁叶草"}
+			if(nbt['cropName']=='aurelia'){return "金叶草"}
+			if(nbt['cropName']=='redwheat'){return "红麦"}
+			if(nbt['cropName']=='netherWart'){return "地狱疣"}
+			if(nbt['cropName']=='terraWart'){return "大地疣"}
+			if(nbt['cropName']=='coffee'){return "咖啡"}
+			if(nbt['cropName']=='hops'){return "啤酒花"}
+			if(nbt['cropName']=='carrots'){return "胡萝卜"}
+			if(nbt['cropName']=='potato'){return "马铃薯"}
+			if(nbt['cropName']=='redMushroom'){return "红蘑菇"}
+			if(nbt['cropName']=='brownMushroom'){return "褐蘑菇"}
+		}
+	</init>
+	<init>
+		function getCropSize(){
+			if(nbt['cropName']=='weed'){return nbt['size']+"/5"}
+			if(nbt['cropName']=='wheat'){return nbt['size']+"/7"}
+			if(nbt['cropName']=='pumpkin'){return nbt['size']+"/4"}
+			if(nbt['cropName']=='melon'){return nbt['size']+"/4"}
+			if(nbt['cropName']=='dandelion'){return nbt['size']+"/4"}
+			if(nbt['cropName']=='rose'){return nbt['size']+"/4"}
+			if(nbt['cropName']=='blackthorn'){return nbt['size']+"/4"}
+			if(nbt['cropName']=='tulip'){return nbt['size']+"/4"}
+			if(nbt['cropName']=='cyazint'){return nbt['size']+"/4"}
+			if(nbt['cropName']=='venomilia'){return nbt['size']+"/6"}
+			if(nbt['cropName']=='reed'){return nbt['size']+"/3"}
+			if(nbt['cropName']=='stickreed'){return nbt['size']+"/4"}
+			if(nbt['cropName']=='cocoa'){return nbt['size']+"/4"}
+			if(nbt['cropName']=='ferru'){return nbt['size']+"/4"}
+			if(nbt['cropName']=='aurelia'){return nbt['size']+"/5"}
+			if(nbt['cropName']=='redwheat'){return nbt['size']+"/7"}
+			if(nbt['cropName']=='netherWart'){return nbt['size']+"/3"}
+			if(nbt['cropName']=='terraWart'){return nbt['size']+"/3"}
+			if(nbt['cropName']=='coffee'){return nbt['size']+"/5"}
+			if(nbt['cropName']=='hops'){return nbt['size']+"/7"}
+			if(nbt['cropName']=='carrots'){return nbt['size']+"/3"}
+			if(nbt['cropName']=='potato'){return nbt['size']+"/4"}
+			if(nbt['cropName']=='redMushroom'){return nbt['size']+"/3"}
+			if(nbt['cropName']=='brownMushroom'){return nbt['size']+"/3"}
+		}
+	</init>
+    <tileentity id="TECrop">
+        <line displayname="作物种类">
+			getCropName()
+        </line>
+        <line displayname="生长周期">
+            getCropSize()
+        </line>
+        <line displayname="生长状态">
+            return nbt['growthPoints']
+        </line>
+        <line displayname="成长速率">
+            return nbt['statGrowth']
+        </line>
+        <line displayname="环境抗性">
+            return nbt['statGain']
+        </line>
+        <line displayname="作物产量">
+            return nbt['statResistance']
+        </line>
+    </tileentity>
+</oo>
