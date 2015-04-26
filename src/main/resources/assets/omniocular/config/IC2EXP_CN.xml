@@ -211,6 +211,8 @@
 			{return name(nbt['InvSlots']['discharge']['Contents'][0])+"(供)"+TAB+ALIGNRIGHT+WHITE+nbt['InvSlots']['discharge']['Contents'][0]['tag']['charge']+" EU"}
 			if(nbt['InvSlots']['discharge']['Contents'][0]['Damage']==1)
 			{return name(nbt['InvSlots']['discharge']['Contents'][0])+"(供)"+TAB+ALIGNRIGHT+GREEN+nbt['InvSlots']['discharge']['Contents'][0]['tag']['charge']+" EU"}
+			if(nbt['InvSlots']['discharge']['Contents'][0]==undefined)
+			{return "供电模式"+TAB+ALIGNRIGHT+WHITE+"外部供电"}
 		}
 	</init>
 	<tileentity id="BatBox"><!--储电盒-->
@@ -276,5 +278,230 @@
 		<line><!--供电物品-->
 			getDischarge()
         </line>
+    </tileentity>
+	<init><!--输入物品-->
+		function getInput(){
+			return name(nbt['InvSlots']['input']['Contents'][0])+"x"+nbt['InvSlots']['input']['Contents'][0]['Count']
+		}
+	</init>
+	<init><!--输出物品-->
+		function getOutput(n){
+			return name(nbt['InvSlots']['output']['Contents'][n])+"x"+nbt['InvSlots']['output']['Contents'][n]['Count']
+		}
+	</init>
+	<init><!--升级插件-->
+		function getUpgrade(n){
+			return name(nbt['InvSlots']['upgrade']['Contents'][n])+TAB+ALIGNRIGHT+WHITE+"x"+nbt['InvSlots']['upgrade']['Contents'][n]['Count']
+		}
+	</init>
+	<tileentity id="Extractor"><!--提取机-->
+        <line displayname="能量储备">
+            return nbt['energy']+" EU"
+        </line>
+		<line><!--供电物品-->
+			getDischarge()
+        </line>
+		<line displayname="输入物品">
+			getInput()
+        </line>
+		<line displayname="输出物品">
+			getOutput(0)
+        </line>
+		<line><!--升级插件0-->
+			getUpgrade(0)
+        </line>
+		<line><!--升级插件1-->
+			getUpgrade(1)
+        </line>
+		<line><!--升级插件2-->
+			getUpgrade(2)
+        </line>
+		<line><!--升级插件3-->
+			getUpgrade(3)
+        </line>
+    </tileentity>
+	<tileentity id="Macerator"><!--打粉机-->
+        <line displayname="能量储备">
+            return nbt['energy']+" EU"
+        </line>
+		<line><!--供电物品-->
+			getDischarge()
+        </line>
+		<line displayname="输入物品">
+			getInput()
+        </line>
+		<line displayname="输出物品">
+			getOutput(0)
+        </line>
+		<line><!--升级插件0-->
+			getUpgrade(0)
+        </line>
+		<line><!--升级插件1-->
+			getUpgrade(1)
+        </line>
+		<line><!--升级插件2-->
+			getUpgrade(2)
+        </line>
+		<line><!--升级插件3-->
+			getUpgrade(3)
+        </line>
+    </tileentity>
+	<tileentity id="Ore Washing Plant"><!--洗矿机-->
+        <line displayname="能量储备">
+            return nbt['energy']+" EU"
+        </line>
+		<line><!--供电物品-->
+			getDischarge()
+        </line>
+		<line displayname="储水单元">
+			return name(nbt['InvSlots']['fluid']['Contents'][0])+"x"+nbt['InvSlots']['fluid']['Contents'][0]['Count']
+        </line>
+		<line displayname="水槽储量">
+            if(nbt['fluidTank']['Empty']==""){return RED+"0/8000 mB"}
+			return nbt['fluidTank']['Amount']+"/8000 mB"
+        </line>
+		<line displayname="输入物品">
+			getInput()
+        </line>
+		<line displayname="输出物品1">
+			getOutput(0)
+        </line>
+		<line displayname="输出物品2">
+			getOutput(1)
+        </line>
+		<line displayname="输出物品3">
+			getOutput(2)
+        </line>
+		<line><!--升级插件0-->
+			getUpgrade(0)
+        </line>
+		<line><!--升级插件1-->
+			getUpgrade(1)
+        </line>
+		<line><!--升级插件2-->
+			getUpgrade(2)
+        </line>
+		<line><!--升级插件3-->
+			getUpgrade(3)
+        </line>
+    </tileentity>
+	<tileentity id="Thermal Centrifuge"><!--热能离心机-->
+        <line displayname="能量储备">
+            return nbt['energy']+" EU"
+        </line>
+		<line><!--供电物品-->
+			getDischarge()
+        </line>
+		<line displayname="输入物品">
+			getInput()
+        </line>
+		<line displayname="输出物品1">
+			getOutput(0)
+        </line>
+		<line displayname="输出物品2">
+			getOutput(1)
+        </line>
+		<line displayname="输出物品3">
+			getOutput(2)
+        </line>
+		<line><!--升级插件0-->
+			getUpgrade(0)
+        </line>
+		<line><!--升级插件1-->
+			getUpgrade(1)
+        </line>
+		<line><!--升级插件2-->
+			getUpgrade(2)
+        </line>
+		<line><!--升级插件3-->
+			getUpgrade(3)
+        </line>
+    </tileentity>
+	<tileentity id="Metal Former"><!--金属成型机-->
+        <line displayname="能量储备">
+            return nbt['energy']+" EU"
+        </line>
+		<line><!--供电物品-->
+			getDischarge()
+        </line>
+		<line displayname="加工模式">
+			if(nbt['mode']==0){return "挤压"}
+			if(nbt['mode']==1){return "辊压"}
+			if(nbt['mode']==2){return "剪切"}
+        </line>
+		<line displayname="输入物品">
+			getInput()
+        </line>
+		<line displayname="输出物品">
+			getOutput(0)
+        </line>
+		<line><!--升级插件0-->
+			getUpgrade(0)
+        </line>
+		<line><!--升级插件1-->
+			getUpgrade(1)
+        </line>
+		<line><!--升级插件2-->
+			getUpgrade(2)
+        </line>
+		<line><!--升级插件3-->
+			getUpgrade(3)
+        </line>
+    </tileentity>
+	<tileentity id="Induction Furnace"><!--感应炉-->
+        <line displayname="能量储备">
+            return nbt['energy']+" EU"
+        </line>
+		<line><!--供电物品-->
+			getDischarge()
+        </line>
+		<line displayname="输入物品1">
+			return name(nbt['InvSlots']['inputA']['Contents'][0])+"x"+nbt['InvSlots']['inputA']['Contents'][0]['Count']
+        </line>
+		<line displayname="输入物品2">
+			return name(nbt['InvSlots']['inputB']['Contents'][0])+"x"+nbt['InvSlots']['inputB']['Contents'][0]['Count']
+        </line>
+		<line displayname="输出物品1">
+			return name(nbt['InvSlots']['outputA']['Contents'][0])+"x"+nbt['InvSlots']['outputA']['Contents'][0]['Count']
+        </line>
+		<line displayname="输出物品2">
+			return name(nbt['InvSlots']['outputB']['Contents'][0])+"x"+nbt['InvSlots']['outputB']['Contents'][0]['Count']
+        </line>
+		<line><!--升级插件0-->
+			getUpgrade(0)
+        </line>
+		<line><!--升级插件1-->
+			getUpgrade(1)
+        </line>
+		<line><!--升级插件2-->
+			getUpgrade(2)
+        </line>
+		<line><!--升级插件3-->
+			getUpgrade(3)
+        </line>
+    </tileentity>
+	<tileentity id="Blast Furnace"><!--高炉-->
+		<line displayname="输入空气">
+			if(nbt['InvSlots']['AirSlot']['Contents'][0]==undefined){return RED+"Empty"}
+			return name(nbt['InvSlots']['AirSlot']['Contents'][0])+"x"+nbt['InvSlots']['AirSlot']['Contents'][0]['Count']
+        </line>
+		<line displayname="输出空槽">
+			return name(nbt['InvSlots']['AirOutputSlot']['Contents'][0])+"x"+nbt['InvSlots']['AirOutputSlot']['Contents'][0]['Count']
+        </line>
+		<line displayname="输入物品">
+			return name(nbt['InvSlots']['InputSlot']['Contents'][0])+"x"+nbt['InvSlots']['InputSlot']['Contents'][0]['Count']
+        </line>
+		<line displayname="输出物品">
+			return name(nbt['InvSlots']['OuputSlot']['Contents'][0])+"x"+nbt['InvSlots']['OuputSlot']['Contents'][0]['Count']
+        </line>
+		<line displayname="输出炉渣">
+			return name(nbt['InvSlots']['OuputslagSlot']['Contents'][0])+"x"+nbt['InvSlots']['OuputslagSlot']['Contents'][0]['Count']
+        </line>
+		<line><!--升级插件0-->
+			getUpgrade(0)
+        </line>
+		<line><!--升级插件1-->
+			getUpgrade(1)
+        </line>	
     </tileentity>
 </oo>
